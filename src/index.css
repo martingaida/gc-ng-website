@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #fafafa;
+  --foreground: #111111;
+  --muted: #f4f4f4;
+  --muted-foreground: #5c5c5c;
+  --border: #e5e5e5;
+  --radius: 4px;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+@layer base {
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible {
+    outline: 2px solid var(--foreground);
+    outline-offset: 2px;
+  }
+}

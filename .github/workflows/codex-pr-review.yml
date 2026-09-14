@@ -1,0 +1,159 @@
+# Codex PR review
+#
+# Required repository secret:
+#   OPENAI_API_KEY — OpenAI API key used only by openai/codex-action's
+#   Responses API proxy. Do not expose this secret to later steps or jobs
+#   that run untrusted checkout code.
+#
+# Workflow and prompt files are owned via .github/CODEOWNERS.
+
+name: Codex PR review
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: PR number to review
+        required: true
+        type: string
+
+jobs:
+  codex:
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (github.event_name == 'issue_comment' &&
+       github.event.issue.pull_request &&
+       contains(github.event.comment.body, '/codex-review'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: read
+    outputs:
+      final_message: ${{ steps.run_codex.outputs.final-message }}
+      pr_number: ${{ steps.ids.outputs.pr_number }}
+    steps:
+      - name: Resolve PR metadata
+        id: ids
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PR_NUMBER_EVENT: ${{ github.event.pull_request.number }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          DISPATCH_PR: ${{ inputs.pr_number }}
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = "pull_request" ]; then
+            PR_NUMBER="$PR_NUMBER_EVENT"
+          elif [ "$EVENT_NAME" = "issue_comment" ]; then
+            PR_NUMBER="$ISSUE_NUMBER"
+          else
+            PR_NUMBER="$DISPATCH_PR"
+          fi
+          if ! [[ "$PR_NUMBER" =~ ^[0-9]+$ ]]; then
+            echo "Invalid PR number: $PR_NUMBER" >&2
+            exit 1
+          fi
+          meta="$(gh api "repos/${GITHUB_REPOSITORY}/pulls/${PR_NUMBER}")"
+          PR_BASE_REF="$(printf '%s' "$meta" | jq -r '.base.ref')"
+          PR_BASE_SHA="$(printf '%s' "$meta" | jq -r '.base.sha')"
+          PR_HEAD_SHA="$(printf '%s' "$meta" | jq -r '.head.sha')"
+          {
+            echo "pr_number=$PR_NUMBER"
+            echo "pr_base_ref=$PR_BASE_REF"
+            echo "pr_base_sha=$PR_BASE_SHA"
+            echo "pr_head_sha=$PR_HEAD_SHA"
+          } >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@v5
+        with:
+          ref: refs/pull/${{ steps.ids.outputs.pr_number }}/merge
+          persist-credentials: true
+          fetch-depth: 0
+
+      - name: Pre-fetch base and head refs for the PR
+        env:
+          PR_BASE_REF: ${{ steps.ids.outputs.pr_base_ref }}
+          PR_NUMBER: ${{ steps.ids.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin \
+            "$PR_BASE_REF" \
+            "+refs/pull/$PR_NUMBER/head"
+          git config --unset-all http.https://github.com/.extraheader || true
+
+      - name: Build Codex prompt
+        env:
+          PR_NUMBER: ${{ steps.ids.outputs.pr_number }}
+          PR_BASE_SHA: ${{ steps.ids.outputs.pr_base_sha }}
+          PR_HEAD_SHA: ${{ steps.ids.outputs.pr_head_sha }}
+        run: |
+          set -euo pipefail
+          {
+            cat .github/codex/pr-review-prompt.md
+            printf '\n\nAppended review context (trusted metadata from the GitHub API):\n'
+            printf 'Repository: %s\n' "$GITHUB_REPOSITORY"
+            printf 'PR number: %s\n' "$PR_NUMBER"
+            printf 'Base SHA: %s\n' "$PR_BASE_SHA"
+            printf 'Head SHA: %s\n' "$PR_HEAD_SHA"
+            printf 'Review ONLY git log --oneline %s...%s and git diff %s...%s\n' \
+              "$PR_BASE_SHA" "$PR_HEAD_SHA" "$PR_BASE_SHA" "$PR_HEAD_SHA"
+          } > .github/codex/pr-review-prompt.generated.md
+
+      - name: Run Codex
+        id: run_codex
+        uses: openai/codex-action@86365089eb2b84e0a8fb0717b304f8bdcb13b20e # v1.12
+        with:
+          openai-api-key: ${{ secrets.OPENAI_API_KEY }}
+          permission-profile: ":read-only"
+          codex-version: "0.150.0"
+          prompt-file: .github/codex/pr-review-prompt.generated.md
+          model: gpt-5.6-luna
+          effort: low
+
+  post_feedback:
+    needs: codex
+    if: needs.codex.result == 'success' && needs.codex.outputs.final_message != ''
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Report Codex feedback
+        uses: actions/github-script@v7
+        env:
+          CODEX_FINAL_MESSAGE: ${{ needs.codex.outputs.final_message }}
+          PR_NUMBER: ${{ needs.codex.outputs.pr_number }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const marker = '<!-- codex-pr-review -->';
+            const prNumber = Number(process.env.PR_NUMBER);
+            const body = `${marker}\n${process.env.CODEX_FINAL_MESSAGE}`;
+            const { data: comments } = await github.rest.issues.listComments({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: prNumber,
+              per_page: 100,
+            });
+            const existing = comments.find(
+              (comment) => comment.body && comment.body.includes(marker),
+            );
+            if (existing) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: existing.id,
+                body,
+              });
+            } else {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: prNumber,
+                body,
+              });
+            }
