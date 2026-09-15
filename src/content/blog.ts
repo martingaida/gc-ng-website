@@ -6,7 +6,7 @@ export const blog_index_meta: PageMeta = {
 	title: "Blog — Natalie Gaida | LMFT",
 	description:
 		"Articles and recommendations from Natalie Gaida, LMFT, on couples communication, intimacy, and relational living for partners in Needham and across Massachusetts.",
-	path: "/blog-3",
+	path: "/blog",
 };
 
 export const blog_posts: readonly BlogPostSummary[] = [
@@ -14,7 +14,7 @@ export const blog_posts: readonly BlogPostSummary[] = [
 		title: "My All-Time Favorite 'Sex with Emily' Podcast Episodes",
 		excerpt:
 			"Check out this list of my favorite 'Sex with Emily' podcast episodes that I often recommend",
-		href: "/blog-3/sex-with-emily-episodes",
+		href: "/blog/sex-with-emily-episodes",
 		image: image_ref(
 			"170880679150--ab6765630000ba8a50c7d252a7bb404519be5b29.webp",
 			"My All-Time Favorite 'Sex with Emily' Podcast Episodes",
@@ -24,7 +24,7 @@ export const blog_posts: readonly BlogPostSummary[] = [
 		title: "Harmonious Holidays: The Art of Generous Listening During the Holidays",
 		excerpt:
 			"Discover the key to harmonious holiday relationships by learning how to master the art of empathetic listening and mature responding, as advised by renowned therapist Terry Real.",
-		href: "/blog-3/holidays-full-respect-living-tips",
+		href: "/blog/holidays-full-respect-living-tips",
 		image: image_ref(
 			"170101590282--freestocks-yb2tglr-rvo-unsplash.webp",
 			"Harmonious Holidays: The Art of Generous Listening During the Holidays",
@@ -37,11 +37,11 @@ export const sex_with_emily_post: BlogPost = {
 		title: "My All-Time Favorite 'Sex with Emily' Podcast Episodes — Natalie Gaida | LMFT",
 		description:
 			"Check out this list of my favorite 'Sex with Emily' podcast episodes that I often recommend",
-		path: "/blog-3/sex-with-emily-episodes",
+		path: "/blog/sex-with-emily-episodes",
 	},
 	h1: "My All-Time Favorite 'Sex with Emily' Podcast Episodes",
 	authorLabel: "Natalie Gaida",
-	authorHref: "/blog-3",
+	authorHref: "/blog",
 	episodes: [
 		{
 			title: "More Foreplay, More Orgasms",
@@ -86,7 +86,7 @@ export const sex_with_emily_post: BlogPost = {
 	),
 	next: {
 		label: "Next Harmonious Holidays: The Art of Generous Listening During the Holidays",
-		href: "/blog-3/holidays-full-respect-living-tips",
+		href: "/blog/holidays-full-respect-living-tips",
 	},
 };
 
@@ -96,11 +96,11 @@ export const holidays_post: BlogPost = {
 			"Harmonious Holidays: Full Respect Living for Family Communication - Terry Real's Technique — Natalie Gaida | LMFT",
 		description:
 			"Learn how to master the art of empathetic listening and mature responding, as advised by renowned therapist Terry Real. This guide offers practical strategies to enhance communication and understanding with loved ones during the festive season. Ideal for those seeking to foster deeper connections and minimize conflicts during holidays.",
-		path: "/blog-3/holidays-full-respect-living-tips",
+		path: "/blog/holidays-full-respect-living-tips",
 	},
 	h1: "Harmonious Holidays: The Art of Generous Listening During the Holidays",
 	authorLabel: "Natalie Gaida",
-	authorHref: "/blog-3",
+	authorHref: "/blog",
 	image: image_ref(
 		"ffe1ef31-445--freestocks-yb2tglr-rvo-unsplash.webp",
 		"Holiday gathering atmosphere representing generous listening during the holidays",
@@ -131,7 +131,7 @@ export const holidays_post: BlogPost = {
 	),
 	prev: {
 		label: "Previous My All-Time Favorite 'Sex with Emily' Podcast Episodes",
-		href: "/blog-3/sex-with-emily-episodes",
+		href: "/blog/sex-with-emily-episodes",
 	},
 };
 

@@ -18,7 +18,7 @@ export const contact = {
 		"Couples therapy in Needham, MA",
 	),
 	h1: "Let's Connect",
-	lead: "Schedule a free consultation with me to see if we are a good fit",
+	lead: "Email or call to schedule a free consultation and see if we are a good fit.",
 	email: EMAIL,
 	emailHref: EMAIL_HREF,
 	phone: PHONE,

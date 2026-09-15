@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 
 import { blog } from "@/content/blog.js";
 import type { BlogPost } from "@/content/types.js";
+import { Breadcrumbs } from "@/ui/components/Breadcrumbs.js";
+import { ResponsiveImage } from "@/ui/components/ResponsiveImage.js";
 import { PageMeta } from "@/seo/PageMeta.js";
 import { breadcrumb_json_ld } from "@/seo/jsonLd.js";
 
@@ -14,29 +16,41 @@ export function BlogIndexPage() {
 			/>
 			<section className="section-pad bg-background">
 				<div className="site-container">
-					<h1 className="font-display text-5xl font-medium">Blog</h1>
-					<p className="mt-4 max-w-measure text-muted-foreground">
+					<Breadcrumbs
+						variant="inline"
+						items={[
+							{ name: "Home", path: "/" },
+							{ name: "Blog" },
+						]}
+					/>
+					<h1 className="font-display text-5xl font-medium text-foreground">
+						Blog
+					</h1>
+					<p className="mt-4 max-w-measure text-lg leading-relaxed text-foreground/90">
 						{blog.meta.description}
 					</p>
 					<ul className="mt-12 grid gap-10 md:grid-cols-2">
 						{blog.posts.map((post) => (
-							<li key={post.href} className="overflow-hidden rounded-card border border-border bg-surface">
-								<img
-									src={post.image.src}
-									alt={post.image.alt}
-									className="aspect-[16/10] w-full object-cover"
-									loading="lazy"
-								/>
-								<div className="flex flex-col gap-3 p-6 md:p-8">
-									<h2 className="font-display text-3xl font-medium">{post.title}</h2>
-									<p className="text-muted-foreground">{post.excerpt}</p>
-									<Link
-										to={post.href}
-										className="underline decoration-accent underline-offset-4 hover:text-primary"
-									>
-										Read more
-									</Link>
-								</div>
+							<li key={post.href}>
+								<Link
+									to={post.href}
+									className="group flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-[color,border-color,transform] duration-hover ease-brand hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.99]"
+								>
+									<ResponsiveImage
+										image={post.image}
+										className="aspect-[16/10] w-full object-cover"
+										sizes="(max-width: 768px) 100vw, 50vw"
+									/>
+									<div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
+										<h2 className="font-display text-3xl font-medium text-foreground">
+											{post.title}
+										</h2>
+										<p className="text-muted-foreground">{post.excerpt}</p>
+										<span className="mt-auto underline decoration-accent underline-offset-4 transition-colors duration-hover group-hover:text-primary group-hover:decoration-primary">
+											Read more
+										</span>
+									</div>
+								</Link>
 							</li>
 						))}
 					</ul>
@@ -53,84 +67,76 @@ function BlogArticle({ post }: { post: BlogPost }) {
 				meta={post.meta}
 				ogImage={post.image?.src}
 				jsonLd={breadcrumb_json_ld(post.meta, [
-					{ name: "Blog", path: "/blog-3" },
+					{ name: "Blog", path: "/blog" },
 				])}
 			/>
 			<article className="section-pad bg-background">
-				<div className="site-container max-w-measure">
-					<p className="text-sm text-muted-foreground">
-						<Link to={post.authorHref} className="hover:text-primary">
-							{post.authorLabel}
-						</Link>
+				<div className="prose-editorial site-container max-w-measure">
+					<Breadcrumbs
+						variant="inline"
+						items={[
+							{ name: "Home", path: "/" },
+							{ name: "Blog", path: "/blog" },
+							{ name: post.h1 },
+						]}
+					/>
+					<p className="prose-meta">
+						<Link to={post.authorHref}>{post.authorLabel}</Link>
 					</p>
-					<h1 className="mt-3 font-display text-4xl font-medium md:text-5xl">
-						{post.h1}
-					</h1>
+					<h1>{post.h1}</h1>
 					{post.image ? (
-						<img
-							src={post.image.src}
-							alt={post.image.alt}
+						<ResponsiveImage
+							image={post.image}
 							className="mt-8 w-full rounded-media object-cover"
+							sizes="(max-width: 768px) 100vw, 42rem"
+							loading="eager"
 						/>
 					) : null}
-					{post.body?.map((paragraph) => (
-						<p key={paragraph.slice(0, 40)} className="mt-6 text-muted-foreground">
+					{post.body?.map((paragraph, index) => (
+						<p key={paragraph.slice(0, 40)} className={index === 0 ? "lede" : undefined}>
 							{paragraph}
 						</p>
 					))}
 					{post.episodes?.map((episode) => (
-						<section key={episode.url} className="mt-10">
-							<h2 className="font-display text-3xl font-medium">
-								<a
-									href={episode.url}
-									className="underline decoration-accent underline-offset-4 hover:text-primary"
-									target="_blank"
-									rel="noreferrer"
-								>
+						<section key={episode.url}>
+							<h2>
+								<a href={episode.url} target="_blank" rel="noreferrer">
 									{episode.title}
+									<span className="sr-only"> (opens in a new tab)</span>
 								</a>
 							</h2>
-							<p className="mt-3 text-muted-foreground">{episode.summary}</p>
+							<p>{episode.summary}</p>
 							{episode.learnings ? (
-								<ul className="mt-4 flex flex-col gap-2 text-muted-foreground">
+								<ul>
 									{episode.learnings.map((item) => (
-										<li key={item}>• {item}</li>
+										<li key={item}>{item}</li>
 									))}
 								</ul>
 							) : null}
 						</section>
 					))}
 					{post.sections?.map((section) => (
-						<section key={section.title} className="mt-10">
-							<h2 className="font-display text-3xl font-medium">{section.title}</h2>
-							<p className="mt-3 text-muted-foreground">{section.body}</p>
+						<section key={section.title}>
+							<h2>{section.title}</h2>
+							<p>{section.body}</p>
 						</section>
 					))}
-					{post.closing ? (
-						<p className="mt-10 text-muted-foreground">{post.closing}</p>
-					) : null}
+					{post.closing ? <p>{post.closing}</p> : null}
 					{post.footerImage ? (
-						<img
-							src={post.footerImage.src}
-							alt={post.footerImage.alt}
+						<ResponsiveImage
+							image={post.footerImage}
 							className="mt-10 w-full rounded-media object-cover"
-							loading="lazy"
+							sizes="(max-width: 768px) 100vw, 42rem"
 						/>
 					) : null}
-					<nav className="mt-12 flex flex-col gap-3 border-t border-border pt-6 text-muted-foreground">
+					<nav className="prose-footer-nav" aria-label="Article navigation">
 						{post.prev ? (
-							<Link to={post.prev.href} className="hover:text-primary">
-								← {post.prev.label}
-							</Link>
+							<Link to={post.prev.href}>← {post.prev.label}</Link>
 						) : null}
 						{post.next ? (
-							<Link to={post.next.href} className="hover:text-primary">
-								{post.next.label} →
-							</Link>
+							<Link to={post.next.href}>{post.next.label} →</Link>
 						) : null}
-						<Link to="/blog-3" className="hover:text-primary">
-							Back to blog
-						</Link>
+						<Link to="/blog">Back to blog</Link>
 					</nav>
 				</div>
 			</article>

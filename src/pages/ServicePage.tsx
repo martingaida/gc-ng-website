@@ -6,10 +6,12 @@ import {
 	RecognitionList,
 	TherapistMeetSection,
 } from "@/ui/components/ContentBlocks.js";
+import { Breadcrumbs } from "@/ui/components/Breadcrumbs.js";
 import { ClosingCtaSection } from "@/ui/components/ClosingCtaSection.js";
 import { FaqList } from "@/ui/components/FaqList.js";
 import { HeroFold } from "@/ui/components/HeroFold.js";
 import { ProcessSteps } from "@/ui/components/ProcessSteps.js";
+import { ResponsiveImage } from "@/ui/components/ResponsiveImage.js";
 import { ServiceTeasers } from "@/ui/components/ServiceCards.js";
 import { PageMeta } from "@/seo/PageMeta.js";
 import { breadcrumb_json_ld, faq_json_ld } from "@/seo/jsonLd.js";
@@ -26,7 +28,7 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 				meta={content.meta}
 				ogImage={content.featureImage.src}
 				jsonLd={[
-					breadcrumb_json_ld(content.meta, [{ name: "Home", path: "/" }]),
+					breadcrumb_json_ld(content.meta, []),
 					faq_json_ld(content.faq),
 				]}
 			/>
@@ -40,13 +42,20 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 				cta={PRIMARY_CTA}
 			/>
 
+			<Breadcrumbs
+				items={[
+					{ name: "Home", path: "/" },
+					{ name: "Services" },
+					{ name: crumbName },
+				]}
+			/>
+
 			<div className="bg-surface-pale">
 				<div className="site-container py-8">
-					<img
-						src={content.accentImage.src}
-						alt={content.accentImage.alt}
+					<ResponsiveImage
+						image={content.accentImage}
 						className="h-24 w-full rounded-media object-cover md:h-32"
-						loading="lazy"
+						sizes="(max-width: 1320px) 100vw, 1320px"
 					/>
 				</div>
 			</div>
@@ -65,24 +74,23 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 			{content.modalities ? (
 				<section className="section-pad bg-surface">
 					<div className="site-container grid items-center gap-10 lg:grid-cols-2">
-						<img
-							src={content.modalities.image.src}
-							alt={content.modalities.image.alt}
+						<ResponsiveImage
+							image={content.modalities.image}
 							className="w-full rounded-media object-cover"
-							loading="lazy"
+							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
 						<div>
 							<h2 className="font-display text-4xl font-medium">
 								{content.modalities.title}
 							</h2>
-							<p className="mt-4 text-muted-foreground">
+							<p className="mt-4 text-foreground/90">
 								{content.modalities.intro}
 							</p>
 							<div className="mt-8 flex flex-col gap-6">
 								{content.modalities.items.map((item) => (
 									<div key={item.title}>
 										<h3 className="font-display text-2xl">{item.title}</h3>
-										<p className="mt-2 text-muted-foreground">{item.body}</p>
+										<p className="mt-2 text-foreground/90">{item.body}</p>
 									</div>
 								))}
 							</div>
@@ -96,17 +104,16 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 			{content.callout ? (
 				<section className="section-pad bg-surface-pale">
 					<div className="site-container grid items-center gap-10 lg:grid-cols-2">
-						<img
-							src={content.callout.image.src}
-							alt={content.callout.image.alt}
+						<ResponsiveImage
+							image={content.callout.image}
 							className="w-full rounded-media object-cover"
-							loading="lazy"
+							sizes="(max-width: 1024px) 100vw, 50vw"
 						/>
 						<div>
 							<h2 className="font-display text-4xl font-medium">
 								{content.callout.title}
 							</h2>
-							<p className="mt-4 text-muted-foreground">{content.callout.body}</p>
+							<p className="mt-4 text-foreground/90">{content.callout.body}</p>
 						</div>
 					</div>
 				</section>
@@ -131,7 +138,6 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 				content={content.closing}
 				accentImage={content.closingAccentImage}
 			/>
-			<span className="sr-only">{crumbName}</span>
 		</>
 	);
 }

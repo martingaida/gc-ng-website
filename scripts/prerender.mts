@@ -267,4 +267,38 @@ for (const route of routes) {
 	write_route(route);
 }
 
+/** Meta-refresh shells for legacy CMS blog paths. */
+const legacy_redirects: readonly { from: string; to: string }[] = [
+	{ from: "/blog-3", to: "/blog" },
+	{
+		from: "/blog-3/sex-with-emily-episodes",
+		to: "/blog/sex-with-emily-episodes",
+	},
+	{
+		from: "/blog-3/holidays-full-respect-living-tips",
+		to: "/blog/holidays-full-respect-living-tips",
+	},
+];
+
+for (const redirect of legacy_redirects) {
+	const target = absolute_url(redirect.to);
+	const html = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="refresh" content="0;url=${target}" />
+  <link rel="canonical" href="${target}" />
+  <title>Redirecting…</title>
+</head>
+<body>
+  <p>This page has moved to <a href="${target}">${target}</a>.</p>
+</body>
+</html>
+`;
+	const out_path = join(dist, redirect.from.replace(/^\//, ""), "index.html");
+	mkdirSync(dirname(out_path), { recursive: true });
+	writeFileSync(out_path, html);
+	console.log(`redirect ${redirect.from} → ${redirect.to}`);
+}
+
 console.log(`Prerendered ${routes.length} routes.`);

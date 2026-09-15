@@ -17,8 +17,8 @@ export function NotFoundPage() {
 				<div className="site-container max-w-measure py-24">
 					<h1 className="font-display text-5xl font-medium">Page not found</h1>
 					<p className="mt-4 text-muted-foreground">
-						That URL does not match a page on this site. Head home or book a
-						consultation.
+						That URL does not match a page on this site. Head home or email to book
+						a consultation.
 					</p>
 					<div className="mt-8 flex flex-wrap gap-4">
 						<ButtonLink to="/">Home</ButtonLink>

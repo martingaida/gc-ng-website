@@ -89,10 +89,10 @@ Hard rules:
 ## Taste memory
 - Profile priors used: none (`~/.tastemaker/profile.md` absent)
 - Decision log: `.tastemaker/decisions.log`
-- Last resolved decisions: keep H3 soft blush message-panel over hero photography; ship EB Garamond + Cormorant until Adobe Garamond Pro is licensed
+- Last resolved decisions: keep H3 soft blush message-panel over hero photography; ship EB Garamond + Cormorant until Adobe Garamond Pro is licensed; UX audit 2026-09-14 adopted mailto CTA honesty, accessible Services menu, `/blog` paths, editorial testimonials, credentials line, mid-scroll mini-CTAs, soft paper grain on pale bands
 - Pending review: none for hero overlay; Adobe Pro webfont remains a future production upgrade
 - Profile promotion: none
-- Memory precedence note: BrandDesignGuide + this lock win over UI/UX Pro Max design-system suggestions (e.g. rejected Liquid Glass / Montserrat pairing)
+- Memory precedence note: BrandDesignGuide + this lock win over UI/UX Pro Max design-system suggestions (e.g. rejected Liquid Glass / Montserrat pairing). Audit remediations that keep blush/cocoa/terracotta and dual Garamond are allowed; do not persist a Pro Max MASTER palette.
 
 ## Mood descriptors
 warm, candid, editorial, unhurried
@@ -112,11 +112,14 @@ none
 - Dial: **3** — soft and restrained; presence, not spectacle (owner restored 2026-09-14 for modern feel)
 - Curves: `--ease-out: cubic-bezier(0.23, 1, 0.32, 1)`
 - Durations: press 160ms · link/button hover 180–220ms · hero enter 220ms / 12px rise · drawers ≤280ms · no UI motion >300ms without a reason
-- Intentional set: (1) hero `enter-rise` message panel, (2) mobile sheet slide/fade, (3) button `active: scale(0.97)`
+- Intentional set: (1) hero `enter-rise` message panel, (2) mobile sheet slide/fade, (3) button `active: scale(0.97)`, (4) home section `Reveal` once (recognition, services, closing CTA — 12px / 220ms, IO gated)
 - Also: FAQ + rotate, nav dropdown opacity, color/hover transitions, smooth scroll (disabled under `prefers-reduced-motion`)
+- Chrome: sticky header always soft `bg-background/95` + hairline; breadcrumbs blend (no pale bar); blog crumbs `variant="inline"` in the measure column
+- Typography: `.prose-editorial` for blog long-form (cocoa body, muted meta only); primary reading copy uses `text-foreground/90` sitewide where muted was overused
+- Affordance: secondary buttons are surface + border (never blush-on-blush); shared cocoa `focus-visible` rings (not black outlines)
 - Forbidden: per-card stagger spam, hover-scale on every card, perpetual ambient loops, parallax, route crossfades
 - Reduced motion: drop spatial travel; opacity crossfade ≤150ms only
-- Verified by: restored Emil-gated set 2026-09-14
+- Verified by: motion + chrome + typography polish 2026-09-14
 
 ## Do not
 - Do not use white text on `#C1806C` for normal-size buttons (use `#A16657`)
@@ -128,3 +131,13 @@ none
 - Do not invent testimonials, metrics, or credentials
 - Do not use ALL-CAPS tracked eyebrows on every section (document chapter labels in the brand guide are the exception)
 - Do not follow generic UI/UX Pro Max “Liquid Glass” or feature-showcase SaaS patterns for this brand
+
+## UX audit decisions (2026-09-14)
+- Primary CTA label is **Email to book a consultation** (mailto honesty); keep expectation copy near CTAs
+- Services nav uses an accessible disclosure (Radix DropdownMenu), not hover-only
+- Visible focus rings required on buttons (`ring-ring` / cocoa)
+- Blog canonical paths are `/blog/*`; `/blog-3/*` redirects for legacy CMS URLs
+- Polyamory remains a focused service page and appears in home service cards
+- Editorial pull quotes for testimonials; quiet credentials line under heroes; mid-scroll mini-CTAs allowed
+- Soft paper grain (`.texture-paper`) allowed on pale tonal bands only — never replaces photography
+- Responsive WebP variants live in `public/images/responsive/`; regenerate with `pnpm images:responsive`

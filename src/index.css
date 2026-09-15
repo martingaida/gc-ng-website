@@ -80,8 +80,8 @@ body {
 	textarea:focus-visible,
 	select:focus-visible,
 	summary:focus-visible {
-		outline: 3px solid #000;
-		outline-offset: 4px;
+		outline: 2px solid var(--ring);
+		outline-offset: 2px;
 	}
 }
 
@@ -107,14 +107,149 @@ body {
 		padding-block: var(--space-section);
 	}
 
+	/* Soft paper grain for tonal atmosphere (Nature Distilled unlock) */
+	.texture-paper {
+		background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+	}
+
+	.editorial-pullquote {
+		text-wrap: pretty;
+	}
+
+	/* Long-form reading — cocoa body, muted only for meta */
+	.prose-editorial {
+		color: var(--foreground);
+		font-size: 1.125rem;
+		line-height: 1.75;
+		text-wrap: pretty;
+	}
+
+	.prose-editorial > h1 {
+		margin-top: 0.75rem;
+		font-family: var(--font-display);
+		font-size: clamp(2.25rem, 4vw, 3rem);
+		font-weight: 500;
+		line-height: 1.2;
+		color: var(--foreground);
+	}
+
+	.prose-editorial > section {
+		margin-top: 2.5rem;
+	}
+
+	.prose-editorial h2 {
+		margin-bottom: 0.75rem;
+		font-family: var(--font-display);
+		font-size: clamp(1.75rem, 3vw, 1.875rem);
+		font-weight: 500;
+		line-height: 1.3;
+		color: var(--foreground);
+	}
+
+	.prose-editorial p {
+		margin-top: 1.5rem;
+		color: var(--foreground);
+	}
+
+	.prose-editorial p.lede {
+		font-size: 1.25rem;
+		line-height: 1.7;
+	}
+
+	.prose-editorial .prose-meta {
+		margin-top: 0;
+		font-size: 0.875rem;
+		line-height: 1.5;
+		color: var(--muted-foreground);
+	}
+
+	.prose-editorial .prose-meta a {
+		color: inherit;
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-underline-offset: 4px;
+		transition: color var(--duration-hover) var(--ease-out),
+			text-decoration-color var(--duration-hover) var(--ease-out);
+	}
+
+	.prose-editorial .prose-meta a:hover {
+		color: var(--primary);
+		text-decoration-color: var(--primary);
+	}
+
+	.prose-editorial a {
+		color: var(--foreground);
+		text-decoration: underline;
+		text-decoration-color: var(--accent);
+		text-underline-offset: 4px;
+		transition: color var(--duration-hover) var(--ease-out),
+			text-decoration-color var(--duration-hover) var(--ease-out);
+	}
+
+	.prose-editorial a:hover {
+		color: var(--primary);
+		text-decoration-color: var(--primary);
+	}
+
+	.prose-editorial ul {
+		margin-top: 1rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding-left: 1.25rem;
+		list-style: disc;
+		color: var(--foreground);
+	}
+
+	.prose-editorial li::marker {
+		color: var(--accent);
+	}
+
+	.prose-editorial .prose-footer-nav {
+		margin-top: 3rem;
+		display: flex;
+		flex-direction: column;
+		gap: 0.75rem;
+		border-top: 1px solid var(--border);
+		padding-top: 1.5rem;
+		color: var(--muted-foreground);
+	}
+
+	.prose-editorial .prose-footer-nav a {
+		color: var(--muted-foreground);
+	}
+
+	.prose-editorial .prose-footer-nav a:hover {
+		color: var(--primary);
+	}
+
 	/* One orchestrated hero entrance — marketing only */
 	.enter-rise {
 		animation: enter-rise var(--duration-enter) var(--ease-out) both;
 	}
 
+	/* Scroll reveal — home sections (IO toggles data-visible) */
+	.reveal {
+		opacity: 0;
+		transform: translateY(12px);
+		transition:
+			opacity var(--duration-enter) var(--ease-out),
+			transform var(--duration-enter) var(--ease-out);
+	}
+
+	.reveal[data-visible="true"] {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
 	@media (prefers-reduced-motion: reduce) {
 		.enter-rise {
 			animation: enter-fade 150ms ease both;
+		}
+
+		.reveal {
+			transform: none;
+			transition: opacity 150ms ease;
 		}
 	}
 }

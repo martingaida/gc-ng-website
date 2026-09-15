@@ -10,6 +10,12 @@ import {
 	PHONE_HREF,
 } from "@/content/site.js";
 
+const FOOTER_LINK_CLASS =
+	"transition-colors duration-hover ease-brand hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
+
+const FOOTER_CONTACT_CLASS =
+	"underline decoration-accent underline-offset-4 transition-colors duration-hover ease-brand hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
+
 export function SiteFooter() {
 	const service_links =
 		NAV.find((item) => item.children)?.children ?? [];
@@ -25,11 +31,11 @@ export function SiteFooter() {
 						Couples therapy in Needham, MA and virtually throughout Massachusetts.
 					</p>
 					<p className="text-muted-foreground">
-						<a className="underline decoration-accent underline-offset-4 hover:text-primary" href={EMAIL_HREF}>
+						<a className={FOOTER_CONTACT_CLASS} href={EMAIL_HREF}>
 							{EMAIL}
 						</a>
 						<br />
-						<a className="underline decoration-accent underline-offset-4 hover:text-primary" href={PHONE_HREF}>
+						<a className={FOOTER_CONTACT_CLASS} href={PHONE_HREF}>
 							{PHONE}
 						</a>
 					</p>
@@ -40,22 +46,22 @@ export function SiteFooter() {
 						<p className="mb-3 font-display text-xl">Explore</p>
 						<ul className="flex flex-col gap-2 text-muted-foreground">
 							<li>
-								<Link to="/" className="hover:text-primary">
+								<Link to="/" className={FOOTER_LINK_CLASS}>
 									Home
 								</Link>
 							</li>
 							<li>
-								<Link to="/about" className="hover:text-primary">
+								<Link to="/about" className={FOOTER_LINK_CLASS}>
 									About
 								</Link>
 							</li>
 							<li>
-								<Link to="/contact" className="hover:text-primary">
+								<Link to="/contact" className={FOOTER_LINK_CLASS}>
 									Contact
 								</Link>
 							</li>
 							<li>
-								<Link to="/blog-3" className="hover:text-primary">
+								<Link to="/blog" className={FOOTER_LINK_CLASS}>
 									Blog
 								</Link>
 							</li>
@@ -67,7 +73,7 @@ export function SiteFooter() {
 							{service_links.map((link) =>
 								link.href ? (
 									<li key={link.href}>
-										<Link to={link.href} className="hover:text-primary">
+										<Link to={link.href} className={FOOTER_LINK_CLASS}>
 											{link.label}
 										</Link>
 									</li>

@@ -1,5 +1,6 @@
 import type { ProcessStep } from "@/content/types.js";
 import { ButtonLink } from "@/ui/components/ButtonLink.js";
+import { CTA_EXPECTATION } from "@/content/site.js";
 
 type ProcessStepsProps = {
 	title: string;
@@ -21,13 +22,14 @@ export function ProcessSteps({ title, steps, cta }: ProcessStepsProps) {
 								{String(step.number).padStart(2, "0")}
 							</span>
 							<h3 className="font-display text-2xl font-medium">{step.title}</h3>
-							<p className="text-muted-foreground">{step.body}</p>
+							<p className="text-foreground/90">{step.body}</p>
 						</li>
 					))}
 				</ol>
 				{cta ? (
 					<div className="mt-12">
 						<ButtonLink to={cta.href}>{cta.label}</ButtonLink>
+						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
 					</div>
 				) : null}
 			</div>

@@ -153,8 +153,8 @@ export const home_now_what = {
 	steps: [
 		{
 			number: 1,
-			title: "Book a free 30 minute consultation Zoom call",
-			body: "I offer a free 30-minute phone call for you to ask any and all of the questions you may have about getting started. We can spend the time getting to know each other and make sure that you feel comfortable moving forward! You can book a time for your free consultation call directly by clicking here. or by clicking any of the “book” buttons throughout my website!",
+			title: "Email to book a free 30-minute consultation",
+			body: "I offer a free 30-minute call so you can ask any questions about getting started. We can get to know each other and make sure you feel comfortable moving forward. Use any “Email to book” button on the site — it opens your email app so you can request a time.",
 		},
 		{
 			number: 2,

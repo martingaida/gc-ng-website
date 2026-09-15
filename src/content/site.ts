@@ -18,9 +18,16 @@ export const EMAIL_HREF = `mailto:${EMAIL}`;
 export const VIRTUAL_NOTE = "Virtual Therapy Services throughout Massachusetts";
 
 export const PRIMARY_CTA: CtaLink = {
-	label: "Book a free consultation",
+	label: "Email to book a consultation",
 	href: "/contact",
 };
+
+/** Short expectation line for mailto-based booking. */
+export const CTA_EXPECTATION =
+	"Opens your email app so you can request a free consultation.";
+
+export const CREDENTIALS_LINE =
+	"Natalie Gaida, LMFT · Couples therapy in Needham, MA · Virtual across Massachusetts";
 
 export const NAV: readonly NavItem[] = [
 	{ label: "Home", href: "/" },
@@ -36,7 +43,7 @@ export const NAV: readonly NavItem[] = [
 			{ label: "Polyamory Therapy", href: "/polyamory-therapy" },
 		],
 	},
-	{ label: "Blog", href: "/blog-3" },
+	{ label: "Blog", href: "/blog" },
 	{ label: "Contact", href: "/contact" },
 ];
 

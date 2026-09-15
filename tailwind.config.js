@@ -67,6 +67,7 @@ export default {
 				press: "var(--duration-press)",
 				hover: "var(--duration-hover)",
 				enter: "var(--duration-enter)",
+				drawer: "var(--duration-drawer)",
 			},
 			boxShadow: {
 				soft: "0 18px 50px rgba(81, 65, 57, 0.12)",

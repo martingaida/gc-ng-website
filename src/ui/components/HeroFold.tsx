@@ -1,5 +1,7 @@
 import type { ImageRef } from "@/content/types.js";
+import { CREDENTIALS_LINE, CTA_EXPECTATION } from "@/content/site.js";
 import { ButtonLink } from "@/ui/components/ButtonLink.js";
+import { ResponsiveImage } from "@/ui/components/ResponsiveImage.js";
 import { cn } from "@/lib/cn";
 
 type HeroFoldProps = {
@@ -10,7 +12,9 @@ type HeroFoldProps = {
 	support?: string;
 	kicker?: string;
 	virtualNote?: string;
+	credentials?: string;
 	cta?: { label: string; href: string };
+	showCtaExpectation?: boolean;
 	compact?: boolean;
 	className?: string;
 };
@@ -23,7 +27,9 @@ export function HeroFold({
 	support,
 	kicker,
 	virtualNote,
+	credentials = CREDENTIALS_LINE,
 	cta,
+	showCtaExpectation = true,
 	compact = false,
 	className,
 }: HeroFoldProps) {
@@ -35,11 +41,12 @@ export function HeroFold({
 				className,
 			)}
 		>
-			<img
-				src={image.src}
-				alt={image.alt}
+			<ResponsiveImage
+				image={image}
 				className="absolute inset-0 size-full object-cover"
 				fetchPriority="high"
+				loading="eager"
+				sizes="100vw"
 			/>
 			<div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent" />
 
@@ -69,9 +76,17 @@ export function HeroFold({
 					{virtualNote ? (
 						<p className="mt-3 text-base text-muted-foreground">{virtualNote}</p>
 					) : null}
+					{credentials ? (
+						<p className="mt-4 text-sm text-muted-foreground">{credentials}</p>
+					) : null}
 					{cta ? (
 						<div className="mt-8">
 							<ButtonLink to={cta.href}>{cta.label}</ButtonLink>
+							{showCtaExpectation ? (
+								<p className="mt-3 text-sm text-muted-foreground">
+									{CTA_EXPECTATION}
+								</p>
+							) : null}
 						</div>
 					) : null}
 				</div>

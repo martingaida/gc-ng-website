@@ -62,6 +62,16 @@ export const HOME_SERVICE_CARDS: readonly ServiceCard[] = [
 			"Couple embracing while holding baby shoes outside their home, representing parenting alignment therapy for couples in Needham, MA",
 		),
 	},
+	{
+		title: "Polyamory Therapy",
+		description:
+			"For couples and polycules who want affirming support with agreements, jealousy, and a structure that fits — not a monogamy-first script.",
+		href: SERVICE_PATHS.polyamory,
+		image: image_ref(
+			"1d851a60-4ec--couples-therapy-needham.webp",
+			"Couples therapy in Needham, MA supporting polyamory-affirming work",
+		),
+	},
 ] as const;
 
 export const TEASER_AFFAIR: ServiceTeaser = {

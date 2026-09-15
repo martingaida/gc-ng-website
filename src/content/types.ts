@@ -14,6 +14,12 @@ export type NavItem = {
 export type ImageRef = {
 	src: string;
 	alt: string;
+	/** Intrinsic pixel width — reserves layout space (CLS). */
+	width?: number;
+	/** Intrinsic pixel height — reserves layout space (CLS). */
+	height?: number;
+	/** Optional precomputed srcset string. */
+	srcSet?: string;
 };
 
 export type CtaLink = {

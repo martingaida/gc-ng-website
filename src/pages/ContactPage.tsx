@@ -1,4 +1,6 @@
+import { CTA_EXPECTATION, EMAIL, EMAIL_HREF, PHONE, PHONE_HREF } from "@/content/site.js";
 import { buttonVariants } from "@/ui/components/Button.js";
+import { Breadcrumbs } from "@/ui/components/Breadcrumbs.js";
 import { HeroFold } from "@/ui/components/HeroFold.js";
 import { contact } from "@/content/contact.js";
 import { PageMeta } from "@/seo/PageMeta.js";
@@ -18,15 +20,19 @@ export function ContactPage() {
 				h1={contact.h1}
 				support={contact.lead}
 				compact
+				showCtaExpectation={false}
+			/>
+			<Breadcrumbs
+				items={[
+					{ name: "Home", path: "/" },
+					{ name: "Contact" },
+				]}
 			/>
 			<section className="section-pad bg-surface">
 				<div className="site-container max-w-measure">
-					<h2 className="font-display text-3xl font-medium md:text-4xl">
-						Contact
-					</h2>
-					<p className="mt-4 text-lg text-muted-foreground">
+					<p className="text-lg text-foreground/90">
 						Reach out by email or phone to schedule a free consultation and see if
-						we are a good fit.
+						we are a good fit. {CTA_EXPECTATION}
 					</p>
 					<dl className="mt-10 flex flex-col gap-6">
 						<div>
@@ -35,10 +41,10 @@ export function ContactPage() {
 							</dt>
 							<dd className="mt-1">
 								<a
-									href={contact.emailHref}
-									className="font-display text-2xl text-foreground underline decoration-accent underline-offset-4 hover:text-primary"
+									href={EMAIL_HREF}
+									className="font-display text-2xl text-foreground underline decoration-accent underline-offset-4 transition-colors duration-hover hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 								>
-									{contact.email}
+									{EMAIL}
 								</a>
 							</dd>
 						</div>
@@ -48,21 +54,22 @@ export function ContactPage() {
 							</dt>
 							<dd className="mt-1">
 								<a
-									href={contact.phoneHref}
-									className="font-display text-2xl text-foreground underline decoration-accent underline-offset-4 hover:text-primary"
+									href={PHONE_HREF}
+									className="font-display text-2xl text-foreground underline decoration-accent underline-offset-4 transition-colors duration-hover hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
 								>
-									{contact.phone}
+									{PHONE}
 								</a>
 							</dd>
 						</div>
 					</dl>
 					<div className="mt-10">
 						<a
-							href={contact.emailHref}
+							href={EMAIL_HREF}
 							className={cn(buttonVariants({ variant: "default", size: "default" }))}
 						>
 							Email to book a consultation
 						</a>
+						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
 					</div>
 				</div>
 			</section>
