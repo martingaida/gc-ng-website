@@ -34,7 +34,8 @@ export function PolyamoryPage() {
 				]}
 			/>
 			<section className="section-pad bg-surface">
-				<div className="site-container max-w-measure">
+				<div className="site-container">
+					<div className="max-w-measure">
 					<h2 className="font-display text-3xl font-medium md:text-4xl">
 						How this work starts
 					</h2>
@@ -55,20 +56,23 @@ export function PolyamoryPage() {
 						<ButtonLink to={PRIMARY_CTA.href}>{PRIMARY_CTA.label}</ButtonLink>
 						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
 					</div>
+					</div>
 				</div>
 			</section>
 			<section className="section-pad bg-background">
 				<div className="site-container">
 					<h2 className="font-display text-4xl font-medium">Related services</h2>
-					<ul className="mt-8 grid gap-6 md:grid-cols-2">
+					<ul className="mt-8 grid gap-8 md:grid-cols-2">
 						{polyamory.relatedServices.map((item) => (
-							<li key={item.href}>
+							<li key={item.href} className="border-t border-border pt-6">
 								<Link
 									to={item.href}
-									className="group flex h-full flex-col rounded-card border border-border bg-surface p-6 transition-[color,border-color,transform] duration-hover ease-brand hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.99]"
+									className="group flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
 								>
-									<h3 className="font-display text-2xl">{item.title}</h3>
-									<p className="mt-3 text-muted-foreground">{item.description}</p>
+									<h3 className="font-display text-2xl transition-colors duration-hover group-hover:text-primary">
+										{item.title}
+									</h3>
+									<p className="mt-3 text-foreground/90">{item.description}</p>
 									<span className="mt-4 inline-block underline decoration-accent underline-offset-4 transition-colors duration-hover group-hover:text-primary group-hover:decoration-primary">
 										Learn more →
 									</span>

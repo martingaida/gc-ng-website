@@ -29,7 +29,8 @@ export function ContactPage() {
 				]}
 			/>
 			<section className="section-pad bg-surface">
-				<div className="site-container max-w-measure">
+				<div className="site-container">
+					<div className="max-w-measure">
 					<p className="text-lg text-foreground/90">
 						Reach out by email or phone to schedule a free consultation and see if
 						we are a good fit. {CTA_EXPECTATION}
@@ -67,9 +68,10 @@ export function ContactPage() {
 							href={EMAIL_HREF}
 							className={cn(buttonVariants({ variant: "default", size: "default" }))}
 						>
-							Email to book a consultation
+							Book a Consultation
 						</a>
 						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
+					</div>
 					</div>
 				</div>
 			</section>

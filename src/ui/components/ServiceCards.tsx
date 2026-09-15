@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 import type { ServiceCard, ServiceTeaser } from "@/content/types.js";
+import { AccentMark } from "@/ui/components/AccentMark.js";
 import { ResponsiveImage } from "@/ui/components/ResponsiveImage.js";
 
 type ServiceCardsProps = {
@@ -11,29 +12,33 @@ type ServiceCardsProps = {
 
 export function ServiceCards({ id, title, cards }: ServiceCardsProps) {
 	return (
-		<section id={id} className="section-pad texture-paper bg-surface-pale">
+		<section id={id} className="section-pad bg-surface">
 			<div className="site-container">
 				{title ? (
-					<h2 className="mb-10 font-display text-4xl font-medium md:text-5xl">
+					<h2 className="mb-12 max-w-measure font-display text-4xl font-medium md:text-5xl">
 						{title}
 					</h2>
 				) : null}
-				<ul className="grid gap-8 md:grid-cols-2 xl:grid-cols-3">
+				<ul className="grid gap-10 md:grid-cols-2 xl:grid-cols-3 xl:gap-x-8 xl:gap-y-12">
 					{cards.map((card) => (
 						<li key={card.href}>
 							<Link
 								to={card.href}
-								className="group flex h-full flex-col overflow-hidden rounded-card border border-border bg-surface transition-[color,border-color,transform] duration-hover ease-brand hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.99]"
+								className="group flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-surface"
 							>
-								<ResponsiveImage
-									image={card.image}
-									className="aspect-[4/3] w-full object-cover"
-									sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
-								/>
-								<div className="flex flex-1 flex-col gap-3 p-6 md:p-8">
-									<h3 className="font-display text-2xl font-medium">{card.title}</h3>
-									<p className="text-muted-foreground">{card.description}</p>
-									<span className="mt-auto text-foreground underline decoration-accent underline-offset-4 transition-colors duration-hover group-hover:text-primary group-hover:decoration-primary">
+								<div className="overflow-hidden rounded-media">
+									<ResponsiveImage
+										image={card.image}
+										className="aspect-[4/3] w-full object-cover"
+										sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 33vw"
+									/>
+								</div>
+								<div className="flex flex-1 flex-col gap-3 pt-5">
+									<h3 className="font-display text-2xl font-medium transition-colors duration-hover group-hover:text-primary">
+										{card.title}
+									</h3>
+									<p className="text-foreground/90">{card.description}</p>
+									<span className="mt-auto pt-1 text-foreground underline decoration-accent underline-offset-4 transition-colors duration-hover group-hover:text-primary group-hover:decoration-primary">
 										Learn more →
 									</span>
 								</div>
@@ -65,7 +70,7 @@ export function ServiceTeasers({
 				{kicker ? (
 					<p className="text-sm tracking-wide text-muted-foreground">{kicker}</p>
 				) : null}
-				<h2 className="mt-2 font-display text-4xl font-medium md:text-5xl">
+				<h2 className="mt-2 max-w-measure font-display text-4xl font-medium md:text-5xl">
 					{title}
 				</h2>
 				{image ? (
@@ -75,19 +80,21 @@ export function ServiceTeasers({
 						sizes="(max-width: 1024px) 100vw, 82.5rem"
 					/>
 				) : null}
-				<ul className="mt-10 grid gap-8 md:grid-cols-2">
+				<ul className="mt-12 grid gap-10 md:grid-cols-2">
 					{items.map((item) => (
-						<li key={item.href}>
+						<li key={item.href} className="border-t border-border pt-6">
 							<Link
 								to={item.href}
-								className="group flex h-full flex-col rounded-card border border-border bg-surface p-6 transition-[color,border-color,transform] duration-hover ease-brand hover:border-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 active:scale-[0.99] md:p-8"
+								className="group flex h-full flex-col focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-4 focus-visible:ring-offset-background"
 							>
-								<h3 className="font-display text-2xl font-medium">{item.title}</h3>
-								<p className="mt-3 text-muted-foreground">{item.description}</p>
+								<h3 className="font-display text-2xl font-medium transition-colors duration-hover group-hover:text-primary">
+									{item.title}
+								</h3>
+								<p className="mt-3 text-foreground/90">{item.description}</p>
 								<ul className="mt-4 flex flex-col gap-2 text-muted-foreground">
 									{item.bullets.map((bullet) => (
-										<li key={bullet} className="flex gap-2">
-											<span aria-hidden="true">∞</span>
+										<li key={bullet} className="flex gap-3">
+											<AccentMark />
 											<span>{bullet}</span>
 										</li>
 									))}

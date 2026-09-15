@@ -50,15 +50,13 @@ export function ServicePage({ content, crumbName }: ServicePageProps) {
 				]}
 			/>
 
-			<div className="bg-surface-pale">
-				<div className="site-container py-8">
-					<ResponsiveImage
-						image={content.accentImage}
-						className="h-24 w-full rounded-media object-cover md:h-32"
-						sizes="(max-width: 1320px) 100vw, 1320px"
-					/>
-				</div>
-			</div>
+			<section className="overflow-hidden bg-background" aria-hidden="true">
+				<ResponsiveImage
+					image={content.accentImage}
+					className="h-40 w-full object-cover md:h-52"
+					sizes="100vw"
+				/>
+			</section>
 
 			<RecognitionList title={content.arrivalTitle} items={content.arrivalItems} />
 

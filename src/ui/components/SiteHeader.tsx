@@ -21,6 +21,9 @@ import {
 } from "@/ui/components/Sheet.js";
 import { cn } from "@/lib/cn";
 
+const LOGO_SRC =
+	"/images/93bb0e03-bb7--natalie-gaida-logo-couple-heart-icon.webp";
+
 const NAV_LINK_CLASS =
 	"inline-flex min-h-11 items-center rounded-control text-[0.95rem] text-foreground transition-colors duration-hover ease-brand hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background";
 
@@ -45,15 +48,26 @@ export function SiteHeader() {
 				scrolled && "border-border shadow-sm",
 			)}
 		>
-			<div className="site-container flex min-h-16 items-center justify-between gap-4 py-3">
+			<div className="site-container flex min-h-[4.25rem] items-center justify-between gap-4 py-3">
 				<Link
 					to="/"
-					className={cn(NAV_LINK_CLASS, "font-display text-xl font-medium tracking-tight md:text-2xl")}
+					className={cn(
+						NAV_LINK_CLASS,
+						"gap-2.5 font-display text-xl font-medium tracking-tight md:text-2xl",
+					)}
 				>
-					{BRAND_SHORT}
+					<img
+						src={LOGO_SRC}
+						alt=""
+						width={36}
+						height={36}
+						className="size-9 object-contain"
+						decoding="async"
+					/>
+					<span>{BRAND_SHORT}</span>
 				</Link>
 
-				<nav className="hidden items-center gap-6 lg:flex" aria-label="Primary">
+				<nav className="hidden items-center gap-5 xl:gap-6 lg:flex" aria-label="Primary">
 					{NAV.map((item) =>
 						item.children ? (
 							<DropdownMenu key={item.label}>
@@ -92,7 +106,9 @@ export function SiteHeader() {
 							</NavLink>
 						) : null,
 					)}
-					<ButtonLink to={PRIMARY_CTA.href}>{PRIMARY_CTA.label}</ButtonLink>
+					<ButtonLink to={PRIMARY_CTA.href} size="sm">
+						{PRIMARY_CTA.label}
+					</ButtonLink>
 				</nav>
 
 				<div className="lg:hidden">
@@ -104,7 +120,15 @@ export function SiteHeader() {
 						</SheetTrigger>
 						<SheetContent side="right" className="bg-background text-foreground">
 							<SheetHeader>
-								<SheetTitle className="font-display text-left text-2xl">
+								<SheetTitle className="flex items-center gap-2.5 font-display text-left text-2xl">
+									<img
+										src={LOGO_SRC}
+										alt=""
+										width={32}
+										height={32}
+										className="size-8 object-contain"
+										decoding="async"
+									/>
 									{BRAND_SHORT}
 								</SheetTitle>
 								<SheetDescription className="sr-only">

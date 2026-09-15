@@ -30,29 +30,30 @@ export function HomePage() {
 				image={home.hero.secondaryImage}
 				h1={home.hero.h1}
 				promise={home.hero.promise}
-				support={home.hero.support}
 				virtualNote={home.hero.virtualNote}
 				cta={home.hero.cta}
 			/>
 
 			<section className="section-pad bg-surface">
-				<div className="site-container max-w-measure">
-					<p className="text-sm tracking-wide text-muted-foreground">
-						{home.unstuck.kicker}
-					</p>
-					<h2 className="mt-2 font-display text-4xl font-medium md:text-5xl">
-						{home.unstuck.title}
-					</h2>
-					<div className="mt-6 flex flex-col gap-4 text-foreground/90">
-						{home.unstuck.paragraphs.map((p) => (
-							<p key={p.slice(0, 40)}>{p}</p>
-						))}
-					</div>
-					<div className="mt-8">
-						<ButtonLink to={PRIMARY_CTA.href} variant="secondary">
-							{PRIMARY_CTA.label}
-						</ButtonLink>
-						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
+				<div className="site-container">
+					<div className="max-w-measure">
+						<p className="text-sm tracking-wide text-muted-foreground">
+							{home.unstuck.kicker}
+						</p>
+						<h2 className="mt-3 font-display text-4xl font-medium text-pretty md:text-5xl">
+							{home.unstuck.title}
+						</h2>
+						<div className="mt-8 flex flex-col gap-5 text-foreground/90">
+							{home.unstuck.paragraphs.map((p) => (
+								<p key={p.slice(0, 40)}>{p}</p>
+							))}
+						</div>
+						<div className="mt-10">
+							<ButtonLink to={PRIMARY_CTA.href} variant="secondary">
+								{PRIMARY_CTA.label}
+							</ButtonLink>
+							<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -66,7 +67,7 @@ export function HomePage() {
 			</Reveal>
 
 			<section className="section-pad bg-background">
-				<div className="site-container grid items-center gap-10 lg:grid-cols-2">
+				<div className="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 					<ResponsiveImage
 						image={home.meet.image}
 						className="aspect-[4/5] w-full rounded-media object-cover"
@@ -76,7 +77,7 @@ export function HomePage() {
 						<p className="text-sm tracking-wide text-muted-foreground">
 							{home.meet.kicker}
 						</p>
-						<h2 className="mt-2 font-display text-4xl font-medium">
+						<h2 className="mt-2 font-display text-4xl font-medium text-pretty">
 							{home.meet.title}
 						</h2>
 						<p className="mt-2 text-muted-foreground">{home.meet.virtualNote}</p>
@@ -98,14 +99,14 @@ export function HomePage() {
 				<ServiceCards title="How I can help" cards={home.services} />
 			</Reveal>
 
-			<section className="border-y border-border texture-paper bg-surface-pale py-10">
-				<div className="site-container flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
-					<p className="max-w-measure text-lg text-foreground/90">
+			<section className="bg-sand py-16 md:py-20">
+				<div className="site-container flex flex-col items-start justify-between gap-8 md:flex-row md:items-center md:gap-12">
+					<p className="max-w-xl font-display text-3xl font-medium leading-snug text-foreground text-pretty md:text-4xl">
 						Ready to talk through what is actually happening between you?
 					</p>
-					<div>
+					<div className="shrink-0 rounded-media bg-surface px-6 py-5 shadow-soft">
 						<ButtonLink to={PRIMARY_CTA.href}>{PRIMARY_CTA.label}</ButtonLink>
-						<p className="mt-2 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
+						<p className="mt-3 text-sm text-muted-foreground">{CTA_EXPECTATION}</p>
 					</div>
 				</div>
 			</section>
@@ -118,17 +119,17 @@ export function HomePage() {
 			/>
 
 			<section className="section-pad bg-surface">
-				<div className="site-container grid items-center gap-10 lg:grid-cols-2">
+				<div className="site-container grid items-center gap-10 lg:grid-cols-2 lg:gap-16">
 					<ResponsiveImage
 						image={home.whyWait.image}
-						className="w-full rounded-media object-cover"
+						className="aspect-[5/4] w-full rounded-media object-cover"
 						sizes="(max-width: 1024px) 100vw, 50vw"
 					/>
 					<div>
-						<h2 className="font-display text-4xl font-medium md:text-5xl">
+						<h2 className="font-display text-4xl font-medium text-pretty md:text-5xl">
 							{home.whyWait.kicker}
 						</h2>
-						<p className="mt-6 text-foreground/90">{home.whyWait.body}</p>
+						<p className="mt-6 text-lg text-foreground/90">{home.whyWait.body}</p>
 					</div>
 				</div>
 			</section>

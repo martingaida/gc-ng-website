@@ -18,8 +18,8 @@ export const EMAIL_HREF = `mailto:${EMAIL}`;
 export const VIRTUAL_NOTE = "Virtual Therapy Services throughout Massachusetts";
 
 export const PRIMARY_CTA: CtaLink = {
-	label: "Email to book a consultation",
-	href: "/contact",
+	label: "Book a Consultation",
+	href: EMAIL_HREF,
 };
 
 /** Short expectation line for mailto-based booking. */

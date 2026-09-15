@@ -10,6 +10,9 @@ import {
 	PHONE_HREF,
 } from "@/content/site.js";
 
+const LOGO_SRC =
+	"/images/93bb0e03-bb7--natalie-gaida-logo-couple-heart-icon.webp";
+
 const FOOTER_LINK_CLASS =
 	"transition-colors duration-hover ease-brand hover:text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background rounded-sm";
 
@@ -22,9 +25,17 @@ export function SiteFooter() {
 
 	return (
 		<footer className="border-t border-border bg-surface-pale">
-			<div className="site-container section-pad flex flex-col gap-10 py-16 md:flex-row md:justify-between">
-				<div className="max-w-md flex flex-col gap-3">
-					<p className="font-display text-3xl font-medium text-foreground">
+			<div className="site-container flex flex-col gap-12 py-16 md:flex-row md:justify-between md:py-20">
+				<div className="flex max-w-md flex-col gap-4">
+					<p className="flex items-center gap-3 font-display text-3xl font-medium text-foreground">
+						<img
+							src={LOGO_SRC}
+							alt=""
+							width={40}
+							height={40}
+							className="size-10 object-contain"
+							decoding="async"
+						/>
 						{BRAND_SHORT}
 					</p>
 					<p className="text-muted-foreground">
@@ -41,10 +52,10 @@ export function SiteFooter() {
 					</p>
 				</div>
 
-				<div className="flex flex-wrap gap-12">
+				<div className="flex flex-wrap gap-12 md:gap-16">
 					<div>
-						<p className="mb-3 font-display text-xl">Explore</p>
-						<ul className="flex flex-col gap-2 text-muted-foreground">
+						<p className="mb-4 font-display text-xl">Explore</p>
+						<ul className="flex flex-col gap-2.5 text-muted-foreground">
 							<li>
 								<Link to="/" className={FOOTER_LINK_CLASS}>
 									Home
@@ -68,8 +79,8 @@ export function SiteFooter() {
 						</ul>
 					</div>
 					<div>
-						<p className="mb-3 font-display text-xl">Services</p>
-						<ul className="flex flex-col gap-2 text-muted-foreground">
+						<p className="mb-4 font-display text-xl">Services</p>
+						<ul className="flex flex-col gap-2.5 text-muted-foreground">
 							{service_links.map((link) =>
 								link.href ? (
 									<li key={link.href}>

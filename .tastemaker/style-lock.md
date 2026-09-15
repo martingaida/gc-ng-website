@@ -89,7 +89,7 @@ Hard rules:
 ## Taste memory
 - Profile priors used: none (`~/.tastemaker/profile.md` absent)
 - Decision log: `.tastemaker/decisions.log`
-- Last resolved decisions: keep H3 soft blush message-panel over hero photography; ship EB Garamond + Cormorant until Adobe Garamond Pro is licensed; UX audit 2026-09-14 adopted mailto CTA honesty, accessible Services menu, `/blog` paths, editorial testimonials, credentials line, mid-scroll mini-CTAs, soft paper grain on pale bands
+- Last resolved decisions: keep H3 soft blush message-panel over hero photography; ship EB Garamond + Cormorant until Adobe Garamond Pro is licensed; UX audit 2026-09-14 adopted mailto CTA honesty, accessible Services menu, `/blog` paths, editorial testimonials, credentials line, mid-scroll mini-CTAs, soft paper grain on pale bands; visual pass 2026-09-14 leaned hero, sand mid-CTA plate, editorial service links (no card kit), featured+grid testimonials, couple-heart chrome, accent dots instead of ∞
 - Pending review: none for hero overlay; Adobe Pro webfont remains a future production upgrade
 - Profile promotion: none
 - Memory precedence note: BrandDesignGuide + this lock win over UI/UX Pro Max design-system suggestions (e.g. rejected Liquid Glass / Montserrat pairing). Audit remediations that keep blush/cocoa/terracotta and dual Garamond are allowed; do not persist a Pro Max MASTER palette.
@@ -133,7 +133,7 @@ none
 - Do not follow generic UI/UX Pro Max “Liquid Glass” or feature-showcase SaaS patterns for this brand
 
 ## UX audit decisions (2026-09-14)
-- Primary CTA label is **Email to book a consultation** (mailto honesty); keep expectation copy near CTAs
+- Primary CTA label is **Book a Consultation** (mailto href; keep expectation copy near CTAs)
 - Services nav uses an accessible disclosure (Radix DropdownMenu), not hover-only
 - Visible focus rings required on buttons (`ring-ring` / cocoa)
 - Blog canonical paths are `/blog/*`; `/blog-3/*` redirects for legacy CMS URLs

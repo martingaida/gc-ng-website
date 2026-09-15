@@ -1,5 +1,5 @@
 import type { ImageRef } from "@/content/types.js";
-import { CREDENTIALS_LINE, CTA_EXPECTATION } from "@/content/site.js";
+import { CTA_EXPECTATION } from "@/content/site.js";
 import { ButtonLink } from "@/ui/components/ButtonLink.js";
 import { ResponsiveImage } from "@/ui/components/ResponsiveImage.js";
 import { cn } from "@/lib/cn";
@@ -12,7 +12,8 @@ type HeroFoldProps = {
 	support?: string;
 	kicker?: string;
 	virtualNote?: string;
-	credentials?: string;
+	/** Pass false to hide; omit to skip credentials on lean heroes. */
+	credentials?: string | false;
 	cta?: { label: string; href: string };
 	showCtaExpectation?: boolean;
 	compact?: boolean;
@@ -27,17 +28,19 @@ export function HeroFold({
 	support,
 	kicker,
 	virtualNote,
-	credentials = CREDENTIALS_LINE,
+	credentials = false,
 	cta,
 	showCtaExpectation = true,
 	compact = false,
 	className,
 }: HeroFoldProps) {
+	const support_line = promise ?? support;
+
 	return (
 		<section
 			className={cn(
 				"relative isolate overflow-hidden bg-foreground",
-				compact ? "min-h-[70vh]" : "min-h-[88vh]",
+				compact ? "min-h-[68vh]" : "min-h-[90vh]",
 				className,
 			)}
 		>
@@ -48,36 +51,47 @@ export function HeroFold({
 				loading="eager"
 				sizes="100vw"
 			/>
-			<div className="absolute inset-0 bg-gradient-to-r from-foreground/35 via-foreground/15 to-transparent" />
+			{/* Soft vignette — keeps cocoa readable without washing out the photo */}
+			<div
+				className="absolute inset-0 bg-gradient-to-r from-foreground/30 via-foreground/10 to-transparent"
+				aria-hidden="true"
+			/>
 
-			<div className="site-container relative flex min-h-[inherit] items-end py-16 md:items-center md:py-24">
-				<div className="enter-rise max-w-xl rounded-media bg-background p-6 shadow-soft md:p-10">
-					<p className="mb-3 font-display text-2xl font-medium text-foreground md:text-3xl">
+			<div className="site-container relative flex min-h-[inherit] items-end py-14 md:items-center md:py-20">
+				<div className="enter-rise w-full max-w-lg rounded-media bg-background p-7 shadow-soft md:max-w-xl md:p-10">
+					<p className="font-display text-2xl font-medium leading-tight text-foreground md:text-[1.75rem]">
 						{brand}
 					</p>
+					<span
+						aria-hidden="true"
+						className="mt-4 block h-px w-12 bg-accent"
+					/>
 					{kicker ? (
-						<p className="mb-2 text-sm tracking-wide text-muted-foreground">
+						<p className="mt-5 text-sm tracking-wide text-muted-foreground">
 							{kicker}
 						</p>
 					) : null}
-					<h1 className="font-display text-4xl font-medium leading-[1.15] text-foreground md:text-5xl lg:text-[3.5rem]">
+					<h1
+						className={cn(
+							"font-display font-medium leading-[1.12] text-foreground text-pretty",
+							kicker ? "mt-2" : "mt-5",
+							compact
+								? "text-4xl md:text-5xl"
+								: "text-[2.5rem] md:text-5xl lg:text-[3.5rem]",
+						)}
+					>
 						{h1}
 					</h1>
-					{promise ? (
-						<p className="mt-4 font-display text-2xl leading-snug text-foreground md:text-3xl">
-							{promise}
-						</p>
-					) : null}
-					{support ? (
-						<p className="mt-3 text-measure text-lg text-muted-foreground">
-							{support}
+					{support_line ? (
+						<p className="mt-4 max-w-[34ch] font-display text-xl leading-snug text-foreground/90 md:text-2xl">
+							{support_line}
 						</p>
 					) : null}
 					{virtualNote ? (
 						<p className="mt-3 text-base text-muted-foreground">{virtualNote}</p>
 					) : null}
 					{credentials ? (
-						<p className="mt-4 text-sm text-muted-foreground">{credentials}</p>
+						<p className="mt-3 text-sm text-muted-foreground">{credentials}</p>
 					) : null}
 					{cta ? (
 						<div className="mt-8">

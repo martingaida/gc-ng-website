@@ -16,34 +16,56 @@ export function TestimonialQuotes({
 	items,
 	showMiniCta = false,
 }: TestimonialQuotesProps) {
+	const [featured, ...rest] = items;
+
 	return (
-		<section className="section-pad bg-background" aria-labelledby="testimonials-heading">
+		<section
+			className="section-pad texture-paper bg-surface-pale"
+			aria-labelledby="testimonials-heading"
+		>
 			<div className="site-container">
 				{logo ? (
 					<ResponsiveImage
 						image={logo}
-						className="mb-8 h-16 w-auto"
-						sizes="64px"
+						className="mb-8 h-14 w-auto"
+						sizes="56px"
 					/>
 				) : null}
 				<h2
 					id="testimonials-heading"
-					className="font-display text-4xl font-medium md:text-5xl"
+					className="max-w-measure font-display text-4xl font-medium md:text-5xl"
 				>
 					{title}
 				</h2>
-				<ul className="mt-10 flex flex-col gap-14">
-					{items.map((item) => (
-						<li key={`${item.attribution}-${item.quote.slice(0, 24)}`}>
-							<blockquote className="editorial-pullquote max-w-3xl border-l-2 border-accent pl-6 font-display text-2xl leading-snug text-foreground md:pl-8 md:text-3xl md:leading-[1.35]">
-								“{item.quote.replace(/^["“]|["”]$/g, "")}”
-							</blockquote>
-							<p className="mt-4 text-muted-foreground">— {item.attribution}</p>
-						</li>
-					))}
-				</ul>
+
+				{featured ? (
+					<figure className="mt-12 max-w-3xl">
+						<blockquote className="editorial-pullquote border-l-2 border-accent pl-6 font-display text-2xl leading-snug text-foreground md:pl-8 md:text-[2rem] md:leading-[1.35]">
+							“{featured.quote.replace(/^["“]|["”]$/g, "")}”
+						</blockquote>
+						<figcaption className="mt-5 text-muted-foreground">
+							— {featured.attribution}
+						</figcaption>
+					</figure>
+				) : null}
+
+				{rest.length > 0 ? (
+					<ul className="mt-16 grid gap-x-12 gap-y-12 md:grid-cols-2">
+						{rest.map((item) => (
+							<li key={`${item.attribution}-${item.quote.slice(0, 24)}`}>
+								<blockquote className="editorial-pullquote border-l border-border pl-5 font-display text-xl leading-snug text-foreground md:text-2xl md:leading-[1.4]">
+									“{item.quote.replace(/^["“]|["”]$/g, "")}”
+								</blockquote>
+								<p className="mt-4 text-sm text-muted-foreground">
+									— {item.attribution}
+								</p>
+							</li>
+						))}
+					</ul>
+				) : null}
+
 				{showMiniCta ? (
-					<div className="mt-12">
+					<div className="mt-14">
 						<ButtonLink to={PRIMARY_CTA.href} variant="secondary">
 							{PRIMARY_CTA.label}
 						</ButtonLink>

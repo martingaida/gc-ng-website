@@ -153,8 +153,8 @@ export const home_now_what = {
 	steps: [
 		{
 			number: 1,
-			title: "Email to book a free 30-minute consultation",
-			body: "I offer a free 30-minute call so you can ask any questions about getting started. We can get to know each other and make sure you feel comfortable moving forward. Use any “Email to book” button on the site — it opens your email app so you can request a time.",
+			title: "Book a free 30-minute consultation",
+			body: "I offer a free 30-minute call so you can ask any questions about getting started. We can get to know each other and make sure you feel comfortable moving forward. Use any “Book a Consultation” button on the site — it opens your email app so you can request a time.",
 		},
 		{
 			number: 2,
