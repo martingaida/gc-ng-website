@@ -3,27 +3,138 @@
 @tailwind utilities;
 
 :root {
-  --background: #fafafa;
-  --foreground: #111111;
-  --muted: #f4f4f4;
-  --muted-foreground: #5c5c5c;
-  --border: #e5e5e5;
-  --radius: 4px;
+	/* Brand palette — Couples Therapy MA */
+	--background: #edd9cf;
+	--foreground: #514139;
+	--surface: #ffffff;
+	--surface-pale: #f8f3f0;
+	--sand: #c8a47e;
+	--primary: #a16657;
+	--primary-hover: #8f574a;
+	--accent: #c1806c;
+	--muted: #f8f3f0;
+	--muted-foreground: #74645c;
+	--border: #ddd3ce;
+	--on-primary: #ffffff;
+	--secondary: #edd9cf;
+	--secondary-hover: #e4cfc3;
+	--ring: #514139;
+
+	--radius-control: 12px;
+	--radius-card: 18px;
+	--radius-media: 20px;
+	--radius: 12px;
+
+	--font-display: "Cormorant Garamond", Baskerville, Georgia, serif;
+	--font-body: "EB Garamond", "Adobe Garamond Pro", Garamond, Georgia, serif;
+
+	--content-max: 82.5rem;
+	--text-max: 42rem;
+	--space-section: clamp(4rem, 8vw, 9rem);
+
+	--ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+	--duration-press: 160ms;
+	--duration-hover: 200ms;
+	--duration-enter: 220ms;
+	--duration-drawer: 280ms;
 }
 
 html,
 body,
 #root {
-  min-height: 100%;
+	min-height: 100%;
+}
+
+html {
+	scroll-behavior: smooth;
+	scroll-padding-top: 5.5rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html {
+		scroll-behavior: auto;
+	}
+
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 150ms !important;
+		transition-property: opacity, color, background-color, border-color !important;
+	}
+}
+
+body {
+	font-family: var(--font-body);
+	font-size: 1.125rem;
+	line-height: 1.7;
+	background-color: var(--background);
+	color: var(--foreground);
 }
 
 @layer base {
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  textarea:focus-visible,
-  select:focus-visible {
-    outline: 2px solid var(--foreground);
-    outline-offset: 2px;
-  }
+	a:focus-visible,
+	button:focus-visible,
+	input:focus-visible,
+	textarea:focus-visible,
+	select:focus-visible,
+	summary:focus-visible {
+		outline: 3px solid #000;
+		outline-offset: 4px;
+	}
+}
+
+@layer utilities {
+	.font-display {
+		font-family: var(--font-display);
+	}
+
+	.font-body {
+		font-family: var(--font-body);
+	}
+
+	.text-measure {
+		max-width: var(--text-max);
+	}
+
+	.site-container {
+		width: min(100% - 10vw, var(--content-max));
+		margin-inline: auto;
+	}
+
+	.section-pad {
+		padding-block: var(--space-section);
+	}
+
+	/* One orchestrated hero entrance — marketing only */
+	.enter-rise {
+		animation: enter-rise var(--duration-enter) var(--ease-out) both;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.enter-rise {
+			animation: enter-fade 150ms ease both;
+		}
+	}
+}
+
+@keyframes enter-rise {
+	from {
+		opacity: 0;
+		transform: translateY(12px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+@keyframes enter-fade {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }

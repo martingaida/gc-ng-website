@@ -166,13 +166,34 @@ python3 skills/ui-ux-pro-max/scripts/search.py "<query>" --domain ux
 
 Location: `skills/emil/emil-design-eng/SKILL.md`
 
-Related: `skills/emil/improve-animations/SKILL.md`, `skills/emil/review-animations/SKILL.md`.
+Related (load by trigger; prefer the smallest set needed):
+
+| Path | When to load |
+|------|----------------|
+| `skills/emil/emil-design-eng/SKILL.md` | Any animation, transition, or interaction-feedback work; default motion judgment |
+| `skills/emil/animate/SKILL.md` | Building a new motion from scratch (curve, duration, properties) |
+| `skills/emil/find-animation-opportunities/SKILL.md` | Before adding motion — decide what deserves animation vs what not to animate |
+| `skills/emil/improve-animations/SKILL.md` | After a first motion pass — audit and prioritize fixes |
+| `skills/emil/review-animations/SKILL.md` | Gate before calling UI work done when motion shipped |
+| `skills/emil/animation-vocabulary/SKILL.md` | When specifying or critiquing motion in precise language |
 
 Use only when the task involves animation, transitions, or interaction feedback.
 
 Motion must be restrained. Prefer CSS over a new animation dependency.
 
-Do not use `skills/emil/pick-ui-library` — the stack is already shadcn/Radix + Tailwind.
+Do not vendor or use `skills/emil/pick-ui-library` — the stack is already shadcn/Radix + Tailwind.
+
+Motion workflow when shipping interaction feedback:
+
+```text
+find-animation-opportunities
+        ↓
+animate / emil-design-eng (CSS-first)
+        ↓
+improve-animations
+        ↓
+review-animations
+```
 
 ---
 
@@ -193,7 +214,7 @@ implementation (semantic HTML + SEO/AEO metadata)
         ↓
 UI/UX review for substantial features
         ↓
-motion review only when relevant
+find-animation-opportunities → animate / emil-design-eng → improve-animations → review-animations
 ```
 
 For a new marketing or content page, also verify title, description, headings, canonical, and structured data before calling the work complete.
